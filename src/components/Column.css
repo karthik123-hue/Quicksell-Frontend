@@ -1,0 +1,38 @@
+.column {
+ 
+    border-radius: 10px;
+
+    padding: 20px;
+    padding-left: 40px;
+    width: 22%; /* Adjust column width to fit the board */
+  }
+  
+  .column h2 {
+    font-size: 1rem;
+    margin-bottom: 15px;
+  }
+  
+  .column .task-card {
+    margin-bottom: 15px;
+  }
+  .column-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+    justify-content: space-between;
+  }
+  
+  .group-icon {
+    width: 24px; /* Adjust size as needed */
+    height: 24px;
+    margin-right: 8px; /* Space between icon and text */
+  }
+  
+  .icon-div{
+    display: flex;
+    align-items: center;
+  }
+.menu-icons{
+  display: flex;
+  align-items: center;
+}

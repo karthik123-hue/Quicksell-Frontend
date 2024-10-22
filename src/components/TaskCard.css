@@ -1,0 +1,38 @@
+.task-card {
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 15px;
+    margin-bottom: 10px;
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
+    font-size: 0.7rem;
+  }
+  .task-card h3 {
+   
+    margin-bottom: 10px;
+  }
+  
+  .task-card p {
+    margin: 5px 0;
+
+  }
+  
+  .task-card .priority {
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
+  }
+  
+  .task-card .priority img {
+    margin-right: 10px;
+  }
+  
+  .task-card .status {
+    display: flex;
+    align-items: center;
+  }
+  
+  .task-card .status img {
+    margin-right: 10px;
+  }
+  
