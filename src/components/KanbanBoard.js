@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import { apiData } from "../apiData";
 import Column from "./Column";
 import GroupingMenu from "./GroupingMenu";
@@ -6,8 +6,19 @@ import SortingMenu from "./SortingMenu";
 import "./KanbanBoard.css";
 
 const KanbanBoard = () => {
-  const [groupBy, setGroupBy] = useState("status");
-  const [sortBy, setSortBy] = useState("priority");
+  const [groupBy, setGroupBy] = useState(() => localStorage.getItem("groupBy") || "status");
+  const [sortBy, setSortBy] = useState(() => localStorage.getItem("sortBy") || "priority");
+
+  // Save groupBy state to localStorage when it changes
+  useEffect(() => {
+    localStorage.setItem("groupBy", groupBy);
+  }, [groupBy]);
+
+  // Save sortBy state to localStorage when it changes
+  useEffect(() => {
+    localStorage.setItem("sortBy", sortBy);
+  }, [sortBy]);
+
   const [showDisplayOptions, setShowDisplayOptions] = useState(false);
 
   const groupTickets = () => {
