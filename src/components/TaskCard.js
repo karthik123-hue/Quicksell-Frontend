@@ -47,24 +47,24 @@ const TaskCard = ({ ticket , displayState }) => {
   return (
     <div className="task-card">
     <div className="task-card-header">
-      <div style={{display:"flex" , alignItems:"center", justifyContent:"space-between"}}>
-      <h3 style={{margin:"0px"}}>{ticket.id}</h3>
+      <div style={{display:"flex" , alignItems:"center", justifyContent:"space-between",marginTop:"0px"}}>
+      <h3 >{ticket.id}</h3>
       {displayState !== "user" && (
         <img src={todoIcon} alt="User Icon" className="user-icon" />
       )}
       </div>
-    <div style={{display:"flex", alignItems:"center", justifyContent:"flex-start"}}>
+    <div style={{display:"flex" , alignItems:"start"}}>
       {displayState !== "status" && (
         <img src={getStatusIcon(ticket.status)} alt="status Icon" style={{marginRight:"10px"}} />
       )}
-      <h3 style={{margin:"0px"}}>{ticket.title}</h3>
+      <h2>{ticket.title}</h2>
       </div>
       {/* Show user icon if displayState is not 'user' */}
       
     </div>
 
     {/* Show priority icon if displayState is not 'priority' */}
-    <div style={{display:"flex" , alignItems:"center" , justifyContent:"flex-start"}}>
+    <div className="priorityandstatus">
     {displayState != "priority" && (
       <div className="priority">
         <img src={getPriorityIcon(ticket.priority)} alt="Priority Icon" />

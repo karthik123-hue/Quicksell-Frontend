@@ -3,6 +3,8 @@ import { apiData } from "../apiData";
 import Column from "./Column";
 import GroupingMenu from "./GroupingMenu";
 import SortingMenu from "./SortingMenu";
+import displayIcon from "../assets/Display.svg";
+import dropdownIcon from"../assets/down.svg";
 import "./KanbanBoard.css";
 
 const KanbanBoard = () => {
@@ -59,7 +61,11 @@ const KanbanBoard = () => {
     <div className="kanban-board">
       <div className="kanban-header">
       <div className="display-container" onClick={handleDisplayClick}>
-          <div className="display-label">Display</div>
+        <div className="display-container-1">
+      <img src={displayIcon} alt="Display Icon" className="display-icon" />
+          <div className="display-label">Display</div></div>
+          <div>
+          <img src={dropdownIcon} alt="Dropdown Icon" className="dropdown-icon" /></div>
           {showDisplayOptions && (
             <div className="display-dropdown" onClick={handleDropdownClick}>
               <div className="group">

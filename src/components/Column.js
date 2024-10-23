@@ -4,13 +4,12 @@ import "./Column.css";
 import addIcon from "../assets/add.svg";
 import menuIcon from "../assets/3 dot menu.svg";
 
-// Import your icons
 import highPriorityIcon from "../assets/Img - High Priority.svg";
 import midPriorityIcon from "../assets/Img - Medium Priority.svg";
 import lowPriorityIcon from "../assets/Img - Low Priority.svg";
-import urgentIcon from "../assets/SVG - Urgent Priority colour.svg"; // Example import for priority icons
-import noPriorityIcon from "../assets/No-priority.svg"; // Add all necessary icons
-import todoIcon from "../assets/To-do.svg"; // Example import for status icons
+import urgentIcon from "../assets/SVG - Urgent Priority colour.svg"; 
+import noPriorityIcon from "../assets/No-priority.svg"; 
+import todoIcon from "../assets/To-do.svg"; 
 import doneIcon from "../assets/Done.svg";
 import inprogressIcon from "../assets/in-progress.svg";
 import cancelledIcon from "../assets/Cancelled.svg";
@@ -54,9 +53,7 @@ const Column = ({ group, tickets, sortBy ,displayState}) => {
 
     }
   };
-  const getCount =(group) =>{
-    
-  }
+ 
   return (
     <div className="column">
       <div className="column-header">
@@ -64,7 +61,7 @@ const Column = ({ group, tickets, sortBy ,displayState}) => {
         <div className="icon-div">
           {getGroupIcon(group) && <img src={getGroupIcon(group)} alt={`${group} Icon`} className="group-icon" style={{marginRight:"10px"}}/>}
           {/* Display group name with task count */}
-          <h2>{group} {  tickets.length}</h2> {/* Show task count here */}
+          <h2 style={{marginTop:"15px"}}>{group} {  tickets.length}</h2> {/* Show task count here */}
         </div>
         <div className="menu-icons">
        <img src={addIcon}  className="group-icon" style={{cursor:"pointer"}}/>
