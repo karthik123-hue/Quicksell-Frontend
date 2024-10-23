@@ -61,7 +61,9 @@ const Column = ({ group, tickets, sortBy ,displayState}) => {
         <div className="icon-div">
           {getGroupIcon(group) && <img src={getGroupIcon(group)} alt={`${group} Icon`} className="group-icon" style={{marginRight:"10px"}}/>}
           {/* Display group name with task count */}
-          <h2 style={{marginTop:"15px"}}>{group} {  tickets.length}</h2> {/* Show task count here */}
+          <h2 style={{ marginTop: "15px" }}>
+          {group} <span style={{ marginLeft: "10px", color: "grey" }}>{tickets.length}</span>
+          </h2>
         </div>
         <div className="menu-icons">
        <img src={addIcon}  className="group-icon" style={{cursor:"pointer"}}/>

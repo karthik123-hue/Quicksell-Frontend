@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import { apiData } from "../apiData";
 import Column from "./Column";
 import GroupingMenu from "./GroupingMenu";
@@ -12,31 +12,31 @@ const KanbanBoard = () => {
   const [sortBy, setSortBy] = useState(() => localStorage.getItem("sortBy") || "priority");
   const [showDisplayOptions, setShowDisplayOptions] = useState(false);
 
-  const dropdownRef = useRef(null); // Reference for the dropdown element
-
-  // Save groupBy state to localStorage when it changes
+  // Save groupBy and sortBy state to localStorage when they change
   useEffect(() => {
     localStorage.setItem("groupBy", groupBy);
   }, [groupBy]);
 
-  // Save sortBy state to localStorage when it changes
   useEffect(() => {
     localStorage.setItem("sortBy", sortBy);
   }, [sortBy]);
 
-  // Detect clicks outside the dropdown to close it
+  // Close dropdown when clicking outside
   useEffect(() => {
     const handleClickOutside = (event) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-        setShowDisplayOptions(false); // Close the dropdown if clicked outside
+      if (!event.target.closest(".display-container")) {
+        setShowDisplayOptions(false);
       }
     };
 
-    document.addEventListener("mousedown", handleClickOutside);
+    if (showDisplayOptions) {
+      document.addEventListener("click", handleClickOutside);
+    }
+
     return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener("click", handleClickOutside);
     };
-  }, [dropdownRef]);
+  }, [showDisplayOptions]);
 
   const groupTickets = () => {
     if (groupBy === "status") {
@@ -65,14 +65,19 @@ const KanbanBoard = () => {
 
   const groupedTickets = groupTickets();
 
+  const handleDisplayClick = (e) => {
+    e.stopPropagation(); // Prevent the click from closing immediately
+    setShowDisplayOptions(!showDisplayOptions); // Toggle dropdown on click
+  };
+
   const handleDropdownClick = (e) => {
-    e.stopPropagation(); // Prevent click from closing the dropdown
+    e.stopPropagation(); // Prevent the click from bubbling up to the document click listener
   };
 
   return (
     <div className="kanban-board">
       <div className="kanban-header">
-        <div className="display-container" onClick={() => setShowDisplayOptions(!showDisplayOptions)}>
+        <div className="display-container" onClick={handleDisplayClick}>
           <div className="display-container-1">
             <img src={displayIcon} alt="Display Icon" className="display-icon" />
             <div className="display-label">Display</div>
@@ -81,7 +86,7 @@ const KanbanBoard = () => {
             <img src={dropdownIcon} alt="Dropdown Icon" className="dropdown-icon" />
           </div>
           {showDisplayOptions && (
-            <div className="display-dropdown" ref={dropdownRef} onClick={handleDropdownClick}>
+            <div className="display-dropdown" onClick={handleDropdownClick}>
               <div className="group">
                 <span>Grouping</span>
                 <GroupingMenu setGroupBy={setGroupBy} />
