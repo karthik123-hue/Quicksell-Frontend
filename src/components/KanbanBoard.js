@@ -1,15 +1,18 @@
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { apiData } from "../apiData";
 import Column from "./Column";
 import GroupingMenu from "./GroupingMenu";
 import SortingMenu from "./SortingMenu";
 import displayIcon from "../assets/Display.svg";
-import dropdownIcon from"../assets/down.svg";
+import dropdownIcon from "../assets/down.svg";
 import "./KanbanBoard.css";
 
 const KanbanBoard = () => {
   const [groupBy, setGroupBy] = useState(() => localStorage.getItem("groupBy") || "status");
   const [sortBy, setSortBy] = useState(() => localStorage.getItem("sortBy") || "priority");
+  const [showDisplayOptions, setShowDisplayOptions] = useState(false);
+
+  const dropdownRef = useRef(null); // Reference for the dropdown element
 
   // Save groupBy state to localStorage when it changes
   useEffect(() => {
@@ -21,7 +24,19 @@ const KanbanBoard = () => {
     localStorage.setItem("sortBy", sortBy);
   }, [sortBy]);
 
-  const [showDisplayOptions, setShowDisplayOptions] = useState(false);
+  // Detect clicks outside the dropdown to close it
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setShowDisplayOptions(false); // Close the dropdown if clicked outside
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [dropdownRef]);
 
   const groupTickets = () => {
     if (groupBy === "status") {
@@ -49,9 +64,6 @@ const KanbanBoard = () => {
   };
 
   const groupedTickets = groupTickets();
-  const handleDisplayClick = () => {
-    setShowDisplayOptions(!showDisplayOptions); // Toggle dropdown on click
-  };
 
   const handleDropdownClick = (e) => {
     e.stopPropagation(); // Prevent click from closing the dropdown
@@ -60,21 +72,23 @@ const KanbanBoard = () => {
   return (
     <div className="kanban-board">
       <div className="kanban-header">
-      <div className="display-container" onClick={handleDisplayClick}>
-        <div className="display-container-1">
-      <img src={displayIcon} alt="Display Icon" className="display-icon" />
-          <div className="display-label">Display</div></div>
+        <div className="display-container" onClick={() => setShowDisplayOptions(!showDisplayOptions)}>
+          <div className="display-container-1">
+            <img src={displayIcon} alt="Display Icon" className="display-icon" />
+            <div className="display-label">Display</div>
+          </div>
           <div>
-          <img src={dropdownIcon} alt="Dropdown Icon" className="dropdown-icon" /></div>
+            <img src={dropdownIcon} alt="Dropdown Icon" className="dropdown-icon" />
+          </div>
           {showDisplayOptions && (
-            <div className="display-dropdown" onClick={handleDropdownClick}>
+            <div className="display-dropdown" ref={dropdownRef} onClick={handleDropdownClick}>
               <div className="group">
-              <span>Grouping </span>
-              <GroupingMenu setGroupBy={setGroupBy} />
+                <span>Grouping</span>
+                <GroupingMenu setGroupBy={setGroupBy} />
               </div>
               <div className="order">
-              <span>Ordering</span>
-              <SortingMenu setSortBy={setSortBy} />
+                <span>Ordering</span>
+                <SortingMenu setSortBy={setSortBy} />
               </div>
             </div>
           )}

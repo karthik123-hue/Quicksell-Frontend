@@ -16,7 +16,7 @@ const SortingMenu = ({ setSortBy }) => {
   };
 
   return (
-    <select value={selectedSort} onChange={handleSortChange}>
+    <select style={{width:"85px"}} value={selectedSort} onChange={handleSortChange}>
       <option value="priority">Priority</option>
       <option value="title">Title</option>
     </select>

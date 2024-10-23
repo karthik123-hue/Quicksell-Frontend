@@ -16,7 +16,7 @@ const GroupingMenu = ({ setGroupBy }) => {
   };
 
   return (
-    <select value={selectedGroup} onChange={handleGroupChange}>
+    <select style={{width:"85px"}} value={selectedGroup} onChange={handleGroupChange}>
       <option value="status">Status</option>
       <option value="user">User</option>
       <option value="priority">Priority</option>
